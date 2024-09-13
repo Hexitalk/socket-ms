@@ -27,6 +27,7 @@ import { ProfileSocketGateway } from './repositories/profile-socket-gateway.repo
   controllers: [...Object.values(controllers)],
   providers: [
     ...Object.values(useCases),
+    ProfileSocketGateway,
     {
       provide: ProfileRepository,
       useExisting: ProfileSocketGateway,
@@ -39,6 +40,7 @@ import { ProfileSocketGateway } from './repositories/profile-socket-gateway.repo
   ],
   exports: [
     ...Object.values(useCases),
+    ProfileSocketGateway,
     {
       provide: ProfileRepository,
       useExisting: ProfileSocketGateway,
