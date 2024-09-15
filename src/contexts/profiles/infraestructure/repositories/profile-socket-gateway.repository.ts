@@ -5,7 +5,9 @@ import { ProfileRepository } from '../../domain/ports/profile.repository';
 import { ProfileInterface } from '../../domain/interfaces/profile.interface';
 
 @Injectable()
-@WebSocketGateway({ cors: true })
+@WebSocketGateway({
+  cors: { origin: '*', transports: ['websocket'] },
+})
 export class ProfileSocketGateway extends ProfileRepository {
   @WebSocketServer() server: Server;
 
