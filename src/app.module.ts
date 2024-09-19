@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ProfilesModule } from './contexts/profiles/infraestructure/profiles.module';
 import { AuthModule } from './contexts/auth/infraestructure/auth.module';
-import { WebsocketGateway } from './web-socket.gateway';
+import { SocketModule } from './contexts/socket/infraestructure/socket.module';
 
 @Module({
-  imports: [ProfilesModule, AuthModule],
+  imports: [SocketModule, ProfilesModule, AuthModule],
   controllers: [],
-  providers: [WebsocketGateway],
+  providers: [],
 })
 export class AppModule {}

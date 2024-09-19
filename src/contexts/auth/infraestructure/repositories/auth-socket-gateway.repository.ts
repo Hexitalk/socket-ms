@@ -2,11 +2,10 @@ import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { Injectable } from '@nestjs/common';
 import { AuthRepository } from '../../domain/ports/auth.repository';
+import { envs } from 'src/config';
 
 @Injectable()
-@WebSocketGateway({
-  cors: { origin: '*', transports: ['websocket'] },
-})
+@WebSocketGateway(envs.socketOptions)
 export class AuthSocketGatewayRepository extends AuthRepository {
   @WebSocketServer() server: Server;
 

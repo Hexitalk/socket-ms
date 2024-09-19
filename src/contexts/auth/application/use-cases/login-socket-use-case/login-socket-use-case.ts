@@ -19,30 +19,43 @@ export class LoginSocketUseCase {
   ) {}
 
   async run(
-    jwtToken: string,
+    token: string,
     client: Socket,
     @NatsPayloadConfig() config?: NatsPayloadConfigInterface,
   ): Promise<void> {
-    if (jwtToken) {
-      const payloadVerifyToken: NatsPayloadInterface<string> = {
+    if (token) {
+      const payloadVerifyToken: NatsPayloadInterface<{
+        token: string;
+        socketId: string;
+      }> = {
         ...config,
-        data: jwtToken,
+        data: { token, socketId: client.id },
       };
 
-      const verifyTokenResponse = await firstValueFrom(
-        this.clientNats.send({ cmd: 'auth.verify-token' }, payloadVerifyToken),
-      );
+      try {
+        // console.log({ payloadVerifyToken });
+        const verifyTokenResponse: { user?: { id: string } } =
+          await firstValueFrom(
+            this.clientNats.send(
+              { cmd: 'auth.verify-token-and-update-socket' },
+              payloadVerifyToken,
+            ),
+          );
 
-      if (!verifyTokenResponse) {
-        throw new RpcException({
-          status: 400,
-          message: 'Fail verify token',
-        });
+        if (!verifyTokenResponse) {
+          throw new RpcException({
+            status: 400,
+            message: 'Fail verify token',
+          });
+        }
+        const { user: userResponse } = verifyTokenResponse;
+        if (userResponse.id) {
+          client.join(userResponse.id);
+        }
+      } catch (error) {
+        console.log('CATCH', error);
       }
 
-      console.log({ verifyTokenResponse });
-
-      // client.join('1');
       // this.profileRepository.emitProfile(authUserId, profile);
     }
   }
