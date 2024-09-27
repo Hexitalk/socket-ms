@@ -18,7 +18,7 @@ export class RpcExceptionInterceptor implements NestInterceptor {
       catchError((error) => {
         if (error instanceof RpcException) {
           /* const ctx = context.switchToRpc();
-          const request = ctx.getContext(); */
+          const request = ctx.getContext();1 */
 
           const rpcError = error.getError();
           let translatedMessage = 'errors.internal_error';

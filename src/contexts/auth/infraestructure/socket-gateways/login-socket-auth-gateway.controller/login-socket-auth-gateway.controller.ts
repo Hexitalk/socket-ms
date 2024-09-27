@@ -19,8 +19,6 @@ export class LoginSocketAuthGatewayController {
 
   @SubscribeMessage('auth.login-socket')
   async run(@MessageBody() data: any, @ConnectedSocket() client: Socket) {
-    // console.log({ data, client_id: client.id });
-
     const natsConfig = {
       authUserId: '',
       lang: data.lang ?? 'es',

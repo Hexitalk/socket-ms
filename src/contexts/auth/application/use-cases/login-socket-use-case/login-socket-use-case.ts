@@ -33,7 +33,6 @@ export class LoginSocketUseCase {
       };
 
       try {
-        // console.log({ payloadVerifyToken });
         const verifyTokenResponse: { user?: { id: string } } =
           await firstValueFrom(
             this.clientNats.send(
