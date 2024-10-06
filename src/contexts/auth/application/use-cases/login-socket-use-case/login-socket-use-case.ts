@@ -50,6 +50,7 @@ export class LoginSocketUseCase {
         const { user: userResponse } = verifyTokenResponse;
         if (userResponse.id) {
           client.join(userResponse.id);
+          console.log('join socket room:', userResponse.id);
         }
       } catch (error) {
         console.log('CATCH', error);
