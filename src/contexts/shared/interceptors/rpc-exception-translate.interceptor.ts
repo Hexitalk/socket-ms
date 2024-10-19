@@ -34,8 +34,14 @@ export class RpcExceptionInterceptor implements NestInterceptor {
             translatedMessage = rpcError.message;
           }
 
+          let lang = 'en';
+
+          try {
+            lang = I18nContext.current().lang;
+          } catch (error) {}
+
           const message = this.i18nService.t(translatedMessage, {
-            lang: I18nContext.current().lang,
+            lang: lang,
           });
 
           // Modifica el mensaje en la excepción original
