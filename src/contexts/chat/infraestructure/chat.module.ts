@@ -4,8 +4,8 @@ import { NatsModule } from 'src/contexts/shared/nats/nats.module';
 import * as path from 'path';
 import * as useCases from '../application/use-cases/index';
 import * as controllers from './controllers';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { RpcExceptionInterceptor } from '../../shared/interceptors/rpc-exception-translate.interceptor';
+// import { APP_INTERCEPTOR } from '@nestjs/core';
+// import { RpcExceptionInterceptor } from '../../shared/interceptors/rpc-exception-translate.interceptor';
 import { I18nJsonLoader, I18nModule } from 'nestjs-i18n';
 import { NatsLanguageResolver } from '../../shared/i18n-resolvers/nats-language.resolver';
 import { ChatSocketEmitter } from './socket-emitters/chat-socket.emitter';
@@ -33,10 +33,10 @@ import { ChatEmitter } from '../domain/ports/chat.emitter';
       useExisting: ChatSocketEmitter,
     },
     NatsLanguageResolver,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: RpcExceptionInterceptor,
-    },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: RpcExceptionInterceptor,
+    // },
   ],
   exports: [
     ...Object.values(useCases),

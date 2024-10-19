@@ -5,8 +5,8 @@ import * as path from 'path';
 // import * as useCases from '../application/use-cases/index';
 import * as socketGateways from './socket-gateways';
 // import * as controllers from './controllers';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { RpcExceptionInterceptor } from '../../shared/interceptors/rpc-exception-translate.interceptor';
+// import { APP_INTERCEPTOR } from '@nestjs/core';
+// import { RpcExceptionInterceptor } from '../../shared/interceptors/rpc-exception-translate.interceptor';
 import { I18nJsonLoader, I18nModule } from 'nestjs-i18n';
 import { NatsLanguageResolver } from '../../shared/i18n-resolvers/nats-language.resolver';
 import { MainSocketEmitter } from './socket-emitters/main-socket.emitter';
@@ -37,10 +37,10 @@ import { AuthModule } from 'src/contexts/auth/infraestructure/auth.module';
       useExisting: MainSocketEmitter,
     },
     NatsLanguageResolver,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: RpcExceptionInterceptor,
-    },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: RpcExceptionInterceptor,
+    // },
   ],
   exports: [
     // ...Object.values(useCases),
