@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { I18nContext, I18nService } from 'nestjs-i18n';
+import { I18nService } from 'nestjs-i18n';
 import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
@@ -34,11 +34,11 @@ export class RpcExceptionInterceptor implements NestInterceptor {
             translatedMessage = rpcError.message;
           }
 
-          let lang = 'en';
+          const lang = 'en';
 
-          try {
-            lang = I18nContext.current().lang;
-          } catch (error) {}
+          // try {
+          //   lang = I18nContext.current().lang;
+          // } catch (error) {}
 
           const message = this.i18nService.t(translatedMessage, {
             lang: lang,
