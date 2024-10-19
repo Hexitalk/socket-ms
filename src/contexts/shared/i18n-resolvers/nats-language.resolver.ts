@@ -4,8 +4,10 @@ import { Injectable, ExecutionContext } from '@nestjs/common';
 @Injectable()
 export class NatsLanguageResolver implements I18nResolver {
   resolve(context: ExecutionContext): string {
-    const data = context.switchToRpc().getData();
-
-    return data.lang || 'en';
+    if (context.getType() === 'rpc') {
+      const data = context.switchToRpc().getData();
+      return data.lang || 'en';
+    }
+    return 'en'; // Fallback en caso de que no sea un contexto RPC
   }
 }
